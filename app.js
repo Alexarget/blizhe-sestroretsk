@@ -13,6 +13,8 @@ const catById = Object.fromEntries(CATEGORIES.map(item => [item.id, item]));
 const categoriesEl = document.getElementById('categories');
 const masterListEl = document.getElementById('master-list');
 const emptyEl = document.getElementById('empty-state');
+const searchEl = document.getElementById('search-masters');
+const clearSearchEl = document.getElementById('clear-search');
 
 function safeUrl(url) {
   if (!url || typeof url !== 'string') return null;
@@ -42,10 +44,10 @@ function renderCategories(active) {
   categoriesEl.replaceChildren();
   CATEGORIES.forEach(category => {
     const count = category.id === 'all' ? masters.length : masters.filter(m => m.category === category.id).length;
-    const button = el('button', 'category' + (active === category.id ? ' active' : ''));
+    const button = el('button', 'category' + (active === category.id ? ' active' : '') + (count === 0 ? ' category-empty' : ''));
     button.type = 'button';
     button.setAttribute('aria-pressed', String(active === category.id));
-    button.append(el('span', 'category-icon', category.icon), el('span', 'category-name', category.title), el('span', 'category-count', count));
+    button.append(el('span', 'category-icon', category.icon), el('span', 'category-name', category.title), el('span', 'category-count', count === 0 ? 'Скоро' : String(count)));
     button.addEventListener('click', () => changeCategory(category.id));
     categoriesEl.append(button);
   });
@@ -86,13 +88,23 @@ function renderMaster(master) {
 function render() {
   const active = currentCategory();
   renderCategories(active);
-  const filtered = active === 'all' ? masters : masters.filter(master => master.category === active);
+  const base = active === 'all' ? masters : masters.filter(master => master.category === active);
+  const query = searchEl.value.trim().toLocaleLowerCase('ru');
+  const filtered = !query ? base : base.filter(master =>
+    [master.name, master.service, master.description, master.area, catById[master.category]?.title]
+      .filter(Boolean).join(' ').toLocaleLowerCase('ru').includes(query)
+  );
+  clearSearchEl.hidden = !query;
   document.getElementById('results-title').textContent = active === 'all' ? 'Все специалисты' : catById[active].title;
-  document.getElementById('results-subtitle').textContent = active === 'all' ? 'Мастера и услуги рядом с вами.' : `Найдено предложений: ${filtered.length}`;
+  document.getElementById('results-subtitle').textContent = query ? `По вашему запросу: ${filtered.length}` : active === 'all' ? 'Мастера и услуги рядом с вами.' : `Предложений в разделе: ${filtered.length}`;
   document.getElementById('count-label').textContent = `${masters.length} предложения`;
   masterListEl.replaceChildren(...filtered.map(renderMaster));
   emptyEl.hidden = filtered.length > 0;
+  document.getElementById('empty-title').textContent = query ? 'Ничего не нашлось' : 'Скоро здесь появятся мастера';
+  document.getElementById('empty-message').textContent = query ? 'Попробуйте другое слово или сбросьте поиск.' : 'Мы пополняем каталог. Пока можно заглянуть в другие категории.';
 }
 window.addEventListener('popstate', render);
+searchEl.addEventListener('input', render);
+clearSearchEl.addEventListener('click', () => {searchEl.value = ''; render(); searchEl.focus();});
 document.getElementById('year').textContent = new Date().getFullYear();
 render();

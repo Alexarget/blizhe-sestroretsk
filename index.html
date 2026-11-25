@@ -25,7 +25,7 @@
         <div class="hero-text">
           <div class="location"><span class="location-pin">●</span> Сестрорецк · местные рядом</div>
           <h1 id="hero-title">Нужный мастер — <em>ближе,</em><br/>чем кажется.</h1>
-          <p>Находите специалистов и полезные услуги в своём городе. Без лишнего поиска.</p>
+          <p>Локальные люди, реальные услуги и любимый город. Найдите нужного человека рядом.</p>
           <a class="hero-cta" href="#catalog">Смотреть каталог <span aria-hidden="true">↗</span></a>
         </div>
         <div class="hero-graphic" aria-hidden="true"><span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><span class="hero-b">Б<span>.</span></span></div>
@@ -33,12 +33,18 @@
 
       <section id="catalog" class="catalog-section" aria-labelledby="catalog-title">
         <div class="section-heading"><div><div class="eyebrow">ЛОКАЛЬНЫЙ КАТАЛОГ</div><h2 id="catalog-title">Выберите направление</h2></div><span class="count-label" id="count-label"></span></div>
+        <div class="search-row">
+          <label class="search-wrap" for="search-masters"><span aria-hidden="true">⌕</span><input id="search-masters" type="search" autocomplete="off" placeholder="Например, сантехник, эвакуатор, автокран…" aria-label="Поиск мастера или услуги" /><kbd>ПОИСК</kbd></label>
+          <button type="button" class="clear-search" id="clear-search" hidden>Сбросить</button>
+        </div>
         <nav class="category-grid" id="categories" aria-label="Категории мастеров"></nav>
+        <div class="editorial-note"><div class="note-kicker">БЛИЖЕ. / ГОРОДСКОЙ ГИД</div><div class="note-copy">Хорошие специалисты — совсем рядом. Знакомьтесь с людьми, которые работают в Сестрорецке.</div><span aria-hidden="true" class="note-arrow">↗</span></div>
         <div class="results-heading"><div><h2 id="results-title">Все специалисты</h2><p id="results-subtitle">Выберите категорию или изучите все предложения.</p></div></div>
         <div class="master-grid" id="master-list" aria-live="polite"></div>
-        <div class="empty-state" id="empty-state" hidden><div class="empty-icon">✳</div><h3>Пока здесь тихо</h3><p>Скоро в этой категории появятся мастера. Следите за обновлениями в нашем VK.</p><a href="https://vk.ru/blizhe_sestroretsk" target="_blank" rel="noopener noreferrer">Перейти в сообщество ↗</a></div>
+        <div class="empty-state" id="empty-state" hidden><div class="empty-icon">✳</div><h3 id="empty-title">Пока здесь тихо</h3><p id="empty-message">Скоро в этой категории появятся мастера. Следите за обновлениями в нашем VK.</p><a href="https://vk.ru/blizhe_sestroretsk" target="_blank" rel="noopener noreferrer">Перейти в сообщество ↗</a></div>
       </section>
 
+      <section class="about-strip"><div><div class="eyebrow">О ПРОЕКТЕ</div><h2>Маленький город. Большие возможности.</h2></div><p>«БЛИЖЕ» знакомит жителей с независимыми мастерами Сестрорецка. Мы не оказываем услуги сами: все детали заказа вы обсуждаете напрямую с исполнителем.</p></section>
       <section class="join-panel"><div class="join-symbol">✦</div><div><h2>Работаете в Сестрорецке?</h2><p>Расскажите о своих услугах. Пока участие в каталоге бесплатное.</p></div><a href="https://vk.ru/blizhe_sestroretsk" target="_blank" rel="noopener noreferrer">Предложить услуги ↗</a></section>
     </main>
     <footer><span>© <span id="year"></span> БЛИЖЕ. Сестрорецк</span><span>Каталог независимых исполнителей. Условия согласовываются напрямую с мастерами.</span></footer>
